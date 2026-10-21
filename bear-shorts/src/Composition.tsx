@@ -8,7 +8,7 @@ export const MyComposition = () => {
       <Composition
         id="BearShorts"
         component={BearShorts}
-        durationInFrames={392}
+        durationInFrames={384}
         fps={30}
         width={1080}
         height={1920}
