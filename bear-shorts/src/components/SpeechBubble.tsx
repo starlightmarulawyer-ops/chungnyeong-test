@@ -15,6 +15,8 @@ type Props = {
   fontSize?: number;
   // Keep the bubble up until the very end instead of popping it away
   stay?: boolean;
+  // Draw the settled bubble with no animation at all (for stills)
+  still?: boolean;
   children: React.ReactNode;
 };
 
@@ -32,23 +34,27 @@ export const SpeechBubble: React.FC<Props> = ({
   tilt = -4,
   fontSize = 60,
   stay = false,
+  still = false,
   children,
 }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
 
-  const popIn = spring({
-    frame,
-    fps,
-    config: { damping: 9, stiffness: 220, mass: 0.7 },
-  });
-  const popOut = stay
+  const popIn = still
     ? 1
-    : interpolate(frame, [durationInFrames - 6, durationInFrames], [1, 0], {
-        extrapolateLeft: "clamp",
-        extrapolateRight: "clamp",
+    : spring({
+        frame,
+        fps,
+        config: { damping: 9, stiffness: 220, mass: 0.7 },
       });
-  const wobble = Math.sin(frame / 7) * 1.5;
+  const popOut =
+    stay || still
+      ? 1
+      : interpolate(frame, [durationInFrames - 6, durationInFrames], [1, 0], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+  const wobble = still ? 0 : Math.sin(frame / 7) * 1.5;
 
   const rad = (tailAngle * Math.PI) / 180;
   const tipX = 40 - tailLength * Math.cos(rad);

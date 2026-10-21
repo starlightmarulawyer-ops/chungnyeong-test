@@ -21,10 +21,14 @@ import { LightSweep, PawTrail, Vignette } from "./components/Decor";
 import { HookTitle, LiveBadge } from "./components/HookTitle";
 import { SpeechBubble } from "./components/SpeechBubble";
 import "./fonts";
+import { Thumbnail } from "./Thumbnail";
 
 // Last frame of the source clip; after this the picture is held as a freeze
 // frame for the outro.
 export const FOOTAGE_END = 331;
+// The thumbnail is shown as a short end card so it can be picked as the cover
+// frame when uploading.
+export const END_CARD_START = 372;
 
 const sfx = (name: string) => staticFile(`sfx/${name}.mp3`);
 
@@ -211,6 +215,33 @@ export const BearShorts: React.FC = () => {
         <Caption text="결론: 곰도 영업함 🐻" highlight="영업함" stay />
       </Sequence>
 
+      <Sequence name="Thumbnail end card" from={END_CARD_START}>
+        <AbsoluteFill
+          style={{
+            opacity: interpolate(
+              frame,
+              [END_CARD_START, END_CARD_START + 3],
+              [0, 1],
+              { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+            ),
+            scale: String(
+              interpolate(
+                frame,
+                [END_CARD_START, END_CARD_START + 5],
+                [1.12, 1],
+                {
+                  extrapolateLeft: "clamp",
+                  extrapolateRight: "clamp",
+                  easing: Easing.out(Easing.cubic),
+                },
+              ),
+            ),
+          }}
+        >
+          <Thumbnail />
+        </AbsoluteFill>
+      </Sequence>
+
       {/* Sound */}
       <Audio name="Original sound" src={staticFile("bear.mp4")} />
       <Audio name="Music" src={staticFile("bgm.m4a")} volume={0.3} />
@@ -227,6 +258,7 @@ export const BearShorts: React.FC = () => {
         <Audio from={312} src={sfx("notification-pop")} volume={0.55} />
         <Audio from={318} src={sfx("jingles-steel-05")} volume={0.45} />
         <Audio from={332} src={sfx("jingles-hit-08")} volume={0.4} />
+        <Audio from={END_CARD_START} src={sfx("card-slide-1")} volume={0.6} />
       </Sequence>
     </AbsoluteFill>
   );

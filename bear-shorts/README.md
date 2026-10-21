@@ -1,7 +1,9 @@
 # 곰 영업 쇼츠 (Remotion)
 
 동물원 곰 영상(11초)에 모션 그래픽을 얹은 1080×1920 세로 쇼츠입니다.
-완성본: `bear-shorts-final.mp4` (12.4초, -14 LUFS)
+
+- 완성본: `bear-shorts-final.mp4` (13.1초, 약 -14 LUFS)
+- 썸네일: `thumbnail.jpg` (1080×1920)
 
 곰이 가려지지 않도록 그래픽은 화면 가장자리·반투명 위주로 배치했습니다.
 
@@ -12,8 +14,18 @@
 | 1.6–2.3s | 카메라 휙 이동 | 빛줄기 스윕 + 휙 효과음 |
 | 2.3–5.0s | 앉아서 빤히 보는 곰 | 말풍선 "...간식 있어요?", 타이틀이 빠지면 LIVE 배지 |
 | 5.0–6.6s | 벌떡 일어나 손 흔듦 | 포커스 브래킷, 반짝이, "하이~👋", 좌측 애교력 게이지 |
-| 6.6–12.4s | 손 내밀고 영업 | "하나만 주세요🙏", 뒤 곰에 "선배곰 👀" → 9.9s부터 끝까지 노란 "선배곰 퇴근 🚶" 태그 |
+| 6.6–12.4s | 손 내밀고 영업 | "하나만 주세요🙏", 뒤 곰에 "선배곰 👀" → 9.9s부터 노란 "선배곰 퇴근 🚶" 태그 |
 | 10.4–12.4s | 다시 손 흔듦 + 정지 화면 | 게이지 MAX, "또 와요~💕", "결론: 곰도 영업함 🐻" |
+| 12.4–13.1s | 썸네일 엔딩 카드 | 썸네일 화면 (12.6s부터 고정) |
+
+## 썸네일
+
+5.5초 장면(손을 번쩍 든 곰)을 확대하고 "곰 영업 실화냐ㅋㅋ" 제목, 손에 빨간 원,
+"하이~👋" 말풍선, "손 흔들며 영업 중 👋"을 얹었습니다 (`src/Thumbnail.tsx`).
+
+같은 화면을 영상 끝(12.6–13.1s)에도 넣어 두었습니다. 쇼츠 업로드 화면에서
+커버(썸네일) 프레임으로 영상 맨 끝을 고르면 이 썸네일이 표지가 됩니다.
+커버 이미지를 따로 올릴 수 있는 곳(릴스 등)에는 `thumbnail.jpg`를 쓰면 됩니다.
 
 ## 작업
 
@@ -21,15 +33,17 @@
 npm i --loglevel=error
 npm run dev                     # Remotion Studio 미리보기
 npx remotion render BearShorts out/bear-shorts.mp4 --codec=h264 --crf=18
+npx remotion still Thumbnail out/thumbnail.png
 ```
 
 렌더 결과(`out/bear-shorts.mp4`)의 오디오를 ffmpeg `loudnorm` 2-pass와
-`alimiter`로 약 -14 LUFS / 트루피크 -1.5dB에 맞추고(영상 스트림은 그대로 복사)
-12.4초로 잘라 `bear-shorts-final.mp4`를 만들었습니다.
+`alimiter`로 약 -14 LUFS / 트루피크 -1.5dB 이하로 맞추고(영상 스트림은 그대로 복사)
+`bear-shorts-final.mp4`를 만들었습니다.
 
 ## 소스
 
 - `public/bear.mp4` – 원본 영상(회전 메타데이터를 반영해 720×1280 / 30fps로 변환)
+- `public/thumb-bg.jpg` – 원본 5.5초 프레임을 2배 업스케일한 썸네일 배경
 - `public/bgm.m4a` – `scripts/make-bgm.py`로 합성한 마림바 BGM
 - `public/sfx/*` – [soundcn](https://github.com/kapishdima/soundcn)의 CC0 효과음 (Kenney)
 - `public/fonts/*` – Jua, Black Han Sans (Google Fonts, SIL OFL)

@@ -9,7 +9,7 @@ import numpy as np
 
 SR = 48000
 BPM = 120
-DURATION = 12.5
+DURATION = 13.2
 BEAT = 60 / BPM
 EIGHTH = BEAT / 2
 
