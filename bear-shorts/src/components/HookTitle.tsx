@@ -83,7 +83,7 @@ export const HookTitle: React.FC = () => {
       >
         {HEADLINE.map((ch, i) => {
           const s = spring({
-            frame: frame - 5 - i * 2,
+            frame: frame - 3 - i * 1.5,
             fps,
             config: { damping: 8, stiffness: 260, mass: 0.6 },
           });

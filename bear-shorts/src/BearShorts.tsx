@@ -119,10 +119,10 @@ export const BearShorts: React.FC = () => {
       />
 
       {/* Top: hook title, then the live badge */}
-      <Sequence name="Hook title" durationInFrames={68}>
+      <Sequence name="Hook title" durationInFrames={130}>
         <HookTitle />
       </Sequence>
-      <Sequence name="Live badge" from={62}>
+      <Sequence name="Live badge" from={126}>
         <LiveBadge />
       </Sequence>
 
@@ -134,8 +134,8 @@ export const BearShorts: React.FC = () => {
           🙌🙌
         </SpeechBubble>
       </Sequence>
-      <Sequence name="Bubble: snacks?" from={100} durationInFrames={50}>
-        <SpeechBubble x={660} y={250} tailY={100} tailAngle={55}>
+      <Sequence name="Bubble: snacks?" from={108} durationInFrames={42}>
+        <SpeechBubble x={700} y={640} tailY={70} tailAngle={12}>
           ...간식
           <br />
           있어요? 🍪
@@ -180,9 +180,9 @@ export const BearShorts: React.FC = () => {
           선배곰 👀
         </PointerTag>
       </Sequence>
-      <Sequence name="Tag: clocking out" from={296} durationInFrames={36}>
-        <PointerTag x={40} y={290}>
-          퇴근함 🚶
+      <Sequence name="Tag: clocking out" from={296}>
+        <PointerTag stay accent x={40} y={290}>
+          선배곰 퇴근 🚶
         </PointerTag>
       </Sequence>
 
@@ -195,7 +195,7 @@ export const BearShorts: React.FC = () => {
       </Sequence>
 
       {/* Narrator captions */}
-      <Sequence name="Caption 1" from={10} durationInFrames={40}>
+      <Sequence name="Caption 1" from={10} durationInFrames={62}>
         <Caption text="먹이 달라고 만세하는 곰 🙌" highlight="만세" />
       </Sequence>
       <Sequence name="Caption 2" from={74} durationInFrames={76}>
@@ -218,7 +218,7 @@ export const BearShorts: React.FC = () => {
         <Audio from={6} src={sfx("pluck-002")} volume={0.5} />
         <Audio from={10} src={sfx("notification-pop")} volume={0.55} />
         <Audio from={46} src={sfx("card-slide-1")} volume={0.9} />
-        <Audio from={100} src={sfx("question-001")} volume={0.45} />
+        <Audio from={108} src={sfx("question-001")} volume={0.45} />
         <Audio from={150} src={sfx("jump-8bit")} volume={0.3} />
         <Audio from={156} src={sfx("notification-pop")} volume={0.55} />
         <Audio from={204} src={sfx("notification-pop")} volume={0.5} />

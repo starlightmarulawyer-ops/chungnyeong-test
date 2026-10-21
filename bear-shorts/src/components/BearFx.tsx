@@ -171,17 +171,21 @@ export const WavingHand: React.FC<{ x: number; y: number }> = ({ x, y }) => {
 export const PointerTag: React.FC<{
   x: number;
   y: number;
+  // Keep the tag up until the very end instead of popping it away
+  stay?: boolean;
+  // Yellow instead of white, to make a changed tag stand out
+  accent?: boolean;
   children: React.ReactNode;
-}> = ({ x, y, children }) => {
+}> = ({ x, y, stay = false, accent = false, children }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
   const pop = spring({ frame, fps, config: { damping: 11, stiffness: 200 } });
-  const fade = interpolate(
-    frame,
-    [durationInFrames - 6, durationInFrames],
-    [1, 0],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
-  );
+  const fade = stay
+    ? 1
+    : interpolate(frame, [durationInFrames - 6, durationInFrames], [1, 0], {
+        extrapolateLeft: "clamp",
+        extrapolateRight: "clamp",
+      });
   const nudge = Math.sin(frame / 5) * 8;
 
   return (
@@ -201,11 +205,11 @@ export const PointerTag: React.FC<{
         style={{
           padding: "8px 22px 4px",
           borderRadius: 18,
-          background: "rgba(255,255,255,0.9)",
+          background: accent ? "#ffd84d" : "rgba(255,255,255,0.9)",
           border: "4px solid #2b1d14",
           color: "#2b1d14",
           fontFamily: `${JUA}, ${EMOJI}`,
-          fontSize: 44,
+          fontSize: 48,
           whiteSpace: "nowrap",
           rotate: "-3deg",
         }}
